@@ -14,4 +14,6 @@ To install a Python package on the venv (and also on the Debug image), put it
 on the "requirements-debug.txt" file (to install it on the Release image put it
 on the "requirements.release.txt" file)
 
-![Create environment command](createEnv.png "createEnvImg")
+![Create environment command](../assets/templatesDocumentationAssets/python3Console/createEnv.png "createEnvImg")
+
+![aaaaaa](https://github.com/Aarif123456/image_repository/blob/main/public/android-icon-144x144.png)
