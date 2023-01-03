@@ -1,6 +1,9 @@
+
 # Python 3 Console template
 
-How to create a virtual enviroment on this template:
+import ReactPlayer from 'react-player';
+
+How to create a virtual environment on this template:
 
  - Press F1
  - Select the command "Python: Create Environment"
@@ -14,4 +17,8 @@ To install a Python package on the venv (and also on the Debug image), put it
 on the "requirements-debug.txt" file (to install it on the Release image put it
 on the "requirements.release.txt" file)
 
-![Create environment command](createEnv.png "createEnvImg")
+![Create environment command](../common/createEnv.png "createEnvImg")
+
+<ReactPlayer playsinline pip={true} stopOnUnmount={false} controls={true} url="./createPythonEnv.mp4" width="35vw" height="auto" preload="metadata" />
+
+https://github.com/andreriesco/vscode-torizon-templates/blob/tie-730/assets/templatesDocumentationAssets/python3Console/createEnv.png
