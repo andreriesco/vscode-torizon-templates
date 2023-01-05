@@ -19,6 +19,9 @@ on the "requirements.release.txt" file)
 
 ![Create environment command](../common/createEnv.png "createEnvImg")
 
-<ReactPlayer playsinline pip={true} stopOnUnmount={false} controls={true} url="./createPythonEnv.mp4" width="35vw" height="auto" preload="metadata" />
+<video width="320" height="240" controls>
+  <source src="./createPythonEnv.mp4" type="video/mp4">
+</video>
+
 
 https://github.com/andreriesco/vscode-torizon-templates/blob/tie-730/assets/templatesDocumentationAssets/python3Console/createEnv.png
