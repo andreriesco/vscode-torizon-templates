@@ -17,11 +17,15 @@ To install a Python package on the venv (and also on the Debug image), put it
 on the "requirements-debug.txt" file (to install it on the Release image put it
 on the "requirements.release.txt" file)
 
+For more details, please what the [demonstration video](./createEnvPython3.mp4)
+
 ![Create environment command](../common/createEnv.png "createEnvImg")
 
-<video width="320" height="240" controls>
-  <source src="./createPythonEnv.mp4" type="video/mp4">
+[As of now, the supported types of videos and audios are described in https://github.com/microsoft/vscode-docs/blob/vnext/release-notes/v1_72.md#built-in-preview-for-some-audio-and-video-files ]:<>
+<video controls>
+  <source src="./createEnvPython3.mp4" type="video/mp4">
 </video>
 
+<ReactPlayer playsinline pip={true} stopOnUnmount={false} controls={true} url="./createPythonEnv.mp4" width="35vw" height="auto" preload="metadata" />
 
 https://github.com/andreriesco/vscode-torizon-templates/blob/tie-730/assets/templatesDocumentationAssets/python3Console/createEnv.png

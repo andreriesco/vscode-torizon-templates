@@ -1,2 +1,2 @@
 To read details about this template and it's specificities, access the 
-[template documentation](https://github.com/andreriesco/vscode-torizon-templates/blob/tie-730/assets/templatesDocumentationAssets/python3Console/README.md)
+[template documentation](file:///home/andreriesco/.apollox/assets/templatesDocumentationAssets/python3Console/README.md)
