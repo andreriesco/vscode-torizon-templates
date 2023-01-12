@@ -1017,6 +1017,34 @@
                 "id": "flame",
                 "color": "terminal.ansiYellow"
             }
+        },
+        {
+            "label": "show-project-documentation",
+            "command": "${command:markdown.showPreview}",
+            "type": "process",
+            "dependsOn": [
+                "open-project-documentation-file"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": "$msCompile",
+            "icon": {
+                "id": "flame",
+                "color": "terminal.ansiYellow"
+            }
+        },
+        {
+            "label": "open-project-documentation-file",
+            "command": "code",
+            "type": "process",
+            "args": [
+                "${userHome}/.apollox/assets/templatesDocumentation/__templateFolder__/README.md"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": "$msCompile",
+            "icon": {
+                "id": "flame",
+                "color": "terminal.ansiYellow"
+            }
         }
     ]
 }
