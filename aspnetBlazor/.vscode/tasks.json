@@ -38,27 +38,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build-torizon-arm",
-            "detail": "hide",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/__change__.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary",
-                "-r",
-                "linux-arm",
-                "--no-self-contained"
-            ],
-            "dependsOrder": "sequence",
-            "problemMatcher": "$msCompile",
-            "icon": {
-                "id": "flame",
-                "color": "terminal.ansiYellow"
-            }
-        },
-        {
             "label": "publish-torizon-arm",
             "detail": "hide",
             "command": "dotnet",
@@ -103,7 +82,6 @@
                 "apply-torizon-packages",
                 "copy-docker-compose",
                 "pre-cleanup-arm",
-                "build-torizon-arm",
                 "publish-torizon-arm",
                 "build-container-torizon-debug-arm",
                 "push-container-torizon-debug-arm",
@@ -163,18 +141,46 @@
             }
         },
         {
-            "label": "build-torizon-amd64",
+            "label": "build-release-arm",
             "detail": "hide",
-            "command": "dotnet",
+            "command": "docker-compose",
             "type": "process",
+            "options": {
+                "env": {
+                    "DOCKER_LOGIN": "${input:dockerLogin}",
+                    "TAG": "arm"
+                }
+            },
             "args": [
                 "build",
-                "${workspaceFolder}/__change__.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary",
-                "-r",
-                "linux-x64",
-                "--no-self-contained"
+                "--build-arg",
+                "IMAGE_ARCH=arm",
+                "__container__"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": "$msCompile",
+            "icon": {
+                "id": "flame",
+                "color": "terminal.ansiYellow"
+            }
+        },
+        {
+            "label": "push-release-arm",
+            "command": "docker-compose",
+            "type": "process",
+            "options": {
+                "env": {
+                    "DOCKER_LOGIN": "${input:dockerLogin}",
+                    "TAG": "arm"
+                }
+            },
+            "args": [
+                "push",
+                "__container__"
+            ],
+            "dependsOn": [
+                "docker-login",
+                "build-release-arm"
             ],
             "dependsOrder": "sequence",
             "problemMatcher": "$msCompile",
@@ -228,7 +234,6 @@
                 "apply-torizon-packages",
                 "copy-docker-compose",
                 "pre-cleanup-amd64",
-                "build-torizon-amd64",
                 "publish-torizon-amd64",
                 "build-container-torizon-debug-amd64",
                 "push-container-torizon-debug-amd64",
@@ -288,18 +293,46 @@
             }
         },
         {
-            "label": "build-torizon-arm64",
+            "label": "build-release-amd64",
             "detail": "hide",
-            "command": "dotnet",
+            "command": "docker-compose",
             "type": "process",
+            "options": {
+                "env": {
+                    "DOCKER_LOGIN": "${input:dockerLogin}",
+                    "TAG": "amd64"
+                }
+            },
             "args": [
                 "build",
-                "${workspaceFolder}/__change__.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary",
-                "-r",
-                "linux-arm64",
-                "--no-self-contained"
+                "--build-arg",
+                "IMAGE_ARCH=amd64",
+                "__container__"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": "$msCompile",
+            "icon": {
+                "id": "flame",
+                "color": "terminal.ansiYellow"
+            }
+        },
+        {
+            "label": "push-release-amd64",
+            "command": "docker-compose",
+            "type": "process",
+            "options": {
+                "env": {
+                    "DOCKER_LOGIN": "${input:dockerLogin}",
+                    "TAG": "amd64"
+                }
+            },
+            "args": [
+                "push",
+                "__container__"
+            ],
+            "dependsOn": [
+                "docker-login",
+                "build-release-amd64"
             ],
             "dependsOrder": "sequence",
             "problemMatcher": "$msCompile",
@@ -353,7 +386,6 @@
                 "apply-torizon-packages",
                 "copy-docker-compose",
                 "pre-cleanup-arm64",
-                "build-torizon-arm64",
                 "publish-torizon-arm64",
                 "build-container-torizon-debug-arm64",
                 "push-container-torizon-debug-arm64",
