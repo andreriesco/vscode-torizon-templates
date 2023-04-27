@@ -1,0 +1,41 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/andreriesco/Documents/IDE2.0/vscode-torizon-templates/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+$(DBG_PATH)/%.o	cppConsole/Makefile	/^$(DBG_PATH)\/%.o: $(SRC_PATH)\/%.c*$/;"	t
+$(OBJ_PATH)/%.o	cppConsole/Makefile	/^$(OBJ_PATH)\/%.o: $(SRC_PATH)\/%.c*$/;"	t
+$(TARGET)	cppConsole/Makefile	/^$(TARGET): $(OBJ)$/;"	t
+$(TARGET_DEBUG)	cppConsole/Makefile	/^$(TARGET_DEBUG): $(OBJ_DEBUG)$/;"	t
+ARCH	cppConsole/Makefile	/^ARCH :=$/;"	m
+BIN_PATH	cppConsole/Makefile	/^BIN_PATH := $(ARCH)\/bin$/;"	m
+CC	cppConsole/Makefile	/^CC := g++$/;"	m
+CCOBJFLAGS	cppConsole/Makefile	/^CCOBJFLAGS := $(CCFLAGS) -c$/;"	m
+CLEAN_LIST	cppConsole/Makefile	/^CLEAN_LIST := $(TARGET) \\$/;"	m
+DBGFLAGS	cppConsole/Makefile	/^DBGFLAGS := -g$/;"	m
+DBG_PATH	cppConsole/Makefile	/^DBG_PATH := $(ARCH)\/debug$/;"	m
+DISTCLEAN_LIST	cppConsole/Makefile	/^DISTCLEAN_LIST := $(OBJ) \\$/;"	m
+LDFLAGS	cppConsole/Makefile	/^LDFLAGS :=$/;"	m
+OBJ	cppConsole/Makefile	/^OBJ := $(addprefix $(OBJ_PATH)\/, $(addsuffix .o, $(notdir $(basename $(SRC)))))$/;"	m
+OBJ_DEBUG	cppConsole/Makefile	/^OBJ_DEBUG := $(addprefix $(DBG_PATH)\/, $(addsuffix .o, $(notdir $(basename $(SRC)))))$/;"	m
+OBJ_PATH	cppConsole/Makefile	/^OBJ_PATH := $(ARCH)\/obj$/;"	m
+SRC	cppConsole/Makefile	/^SRC := $(foreach x, $(SRC_PATH), $(wildcard $(addprefix $(x)\/*,.c*)))$/;"	m
+SRC_PATH	cppConsole/Makefile	/^SRC_PATH := src$/;"	m
+TARGET	cppConsole/Makefile	/^TARGET := $(BIN_PATH)\/$(TARGET_NAME)$/;"	m
+TARGET_DEBUG	cppConsole/Makefile	/^TARGET_DEBUG := $(DBG_PATH)\/$(TARGET_NAME)$/;"	m
+TARGET_NAME	cppConsole/Makefile	/^TARGET_NAME := __change__$/;"	m
+__anon52f8aff70102	cppQML/main.cpp	/^                     &app, [url](QObject *obj, const QUrl &objUrl) {$/;"	f	function:main	file:
+all	cppConsole/Makefile	/^all: $(TARGET)$/;"	t
+clean	cppConsole/Makefile	/^clean:$/;"	t
+debug	cppConsole/Makefile	/^debug: $(TARGET_DEBUG)$/;"	t
+default	cppConsole/Makefile	/^default: makedir all$/;"	t
+distclean	cppConsole/Makefile	/^distclean:$/;"	t
+main	cppConsole/src/main.cpp	/^int main() {$/;"	f	typeref:typename:int
+main	cppQML/main.cpp	/^int main(int argc, char *argv[])$/;"	f	typeref:typename:int
+makedir	cppConsole/Makefile	/^makedir:$/;"	t
