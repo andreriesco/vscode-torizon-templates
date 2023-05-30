@@ -40,12 +40,12 @@ WORKDIR /app
 
 COPY . /app
 
-RUN mkdir -p output
+ENV IMAGE_ARCH ${IMAGE_ARCH}
 
 RUN if [ "$IMAGE_ARCH" == "arm64" ] ; then \
-    cargo build --target aarch64-unknown-linux-gnu; \
+    cargo build --target aarch64-unknown-linux-gnu --release; \
     elif [ "$IMAGE_ARCH" == "arm32" ] ; then \
-    cargo build --target armv7-unknown-linux-gnueabihf; \
+    cargo build --target armv7-unknown-linux-gnueabihf --release; \
     fi
 
 # BUILD ------------------------------------------------------------------------
@@ -63,7 +63,7 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
     && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 # copy the build
-COPY --from=Build /app/debug /app
+COPY --from=Build /app/target/*-unknown-linux-gnu-*/release /app
 
 # ADD YOUR ARGUMENTS HERE
 CMD [ "./app/main" ]
