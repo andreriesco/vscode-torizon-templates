@@ -58,6 +58,18 @@ if ($null -eq $env:TORIZON_ARCH) {
     $imageArch = $env:TORIZON_ARCH
 }
 
+if ($null -eq $env:APP_ROOT) {
+    throw "❌ APP_ROOT not set"
+} else {
+    $appRoot = $env:APP_ROOT
+}
+
+if ($null -eq $env:APP_EXECUTABLE) {
+    throw "❌ APP_EXECUTABLE not set"
+} else {
+    $appExecutable = $env:APP_EXECUTABLE
+}
+
 if ($env:TASKS_ITERATIVE -eq $False) {
     $_iterative = $False
 }
@@ -125,6 +137,8 @@ $env:DOCKER_LOGIN="$dockerLogin"
 Set-Location $compoFilePath
 
 docker compose build `
+    --build-arg APP_ROOT=$appRoot `
+    --build-arg APP_EXECUTABLE=$appExecutable `
     --build-arg IMAGE_ARCH=$imageArch `
     --build-arg GPU=$gpu `
     $imageName

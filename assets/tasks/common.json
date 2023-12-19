@@ -75,7 +75,9 @@
             "options": {
                 "env": {
                     "DOCKER_PSSWD": "${command:docker_password}",
-                    "TORIZON_ARCH": "${input:archList}"
+                    "TORIZON_ARCH": "${input:archList}",
+                    "APP_ROOT": "${config:torizon_app_root}",
+                    "APP_EXECUTABLE": "${config:torizon_app_executable"
                 }
             },
             "args": [
@@ -595,7 +597,9 @@
                 "-p",
                 "torizon",
                 "down",
-                "--remove-orphans"
+                "--remove-orphans",
+                "--rmi",
+                "local"
             ],
             "dependsOrder": "sequence",
             "dependsOn": [
@@ -633,6 +637,8 @@
                 "SSHUSERNAME=${config:torizon_run_as}",
                 "--build-arg",
                 "APP_ROOT=${config:torizon_app_root}",
+                "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}",
                 "--build-arg",
                 "IMAGE_ARCH=arm64",
                 "--build-arg",
@@ -678,6 +684,8 @@
                 "--build-arg",
                 "APP_ROOT=${config:torizon_app_root}",
                 "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}",
+                "--build-arg",
                 "IMAGE_ARCH=arm",
                 "--build-arg",
                 "SSH_DEBUG_PORT=${config:torizon_debug_ssh_port}",
@@ -721,6 +729,8 @@
                 "SSHUSERNAME=${config:torizon_run_as}",
                 "--build-arg",
                 "APP_ROOT=${config:torizon_app_root}",
+                "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}",
                 "--build-arg",
                 "IMAGE_ARCH=amd64",
                 "--build-arg",
@@ -766,6 +776,8 @@
                 "--build-arg",
                 "APP_ROOT=${config:torizon_app_root}",
                 "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}",
+                "--build-arg",
                 "IMAGE_ARCH=riscv64",
                 "--build-arg",
                 "SSH_DEBUG_PORT=${config:torizon_debug_ssh_port}",
@@ -801,7 +813,11 @@
                 "--build-arg",
                 "IMAGE_ARCH=arm64",
                 "--build-arg",
-                "GPU=${config:torizon_gpu}"
+                "GPU=${config:torizon_gpu}",
+                "--build-arg",
+                "APP_ROOT=${config:torizon_app_root}",
+                "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}"
             ],
             "dependsOrder": "sequence",
             "dependsOn": [
@@ -831,7 +847,11 @@
                 "-t",
                 "cross-toolchain-arm-__container__",
                 "--build-arg",
-                "IMAGE_ARCH=arm"
+                "IMAGE_ARCH=arm",
+                "--build-arg",
+                "APP_ROOT=${config:torizon_app_root}",
+                "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}"
             ],
             "dependsOrder": "sequence",
             "dependsOn": [
@@ -861,7 +881,11 @@
                 "-t",
                 "cross-toolchain-amd64-__container__",
                 "--build-arg",
-                "IMAGE_ARCH=amd64"
+                "IMAGE_ARCH=amd64",
+                "--build-arg",
+                "APP_ROOT=${config:torizon_app_root}",
+                "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}"
             ],
             "dependsOrder": "sequence",
             "dependsOn": [
@@ -891,7 +915,11 @@
                 "-t",
                 "cross-toolchain-riscv64-__container__",
                 "--build-arg",
-                "IMAGE_ARCH=riscv64"
+                "IMAGE_ARCH=riscv64",
+                "--build-arg",
+                "APP_ROOT=${config:torizon_app_root}",
+                "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}"
             ],
             "dependsOrder": "sequence",
             "dependsOn": [
@@ -1244,6 +1272,8 @@
                 "--build-arg",
                 "APP_ROOT=${config:torizon_app_root}",
                 "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}",
+                "--build-arg",
                 "IMAGE_ARCH=arm64",
                 "--build-arg",
                 "GPU=${config:torizon_gpu}",
@@ -1281,6 +1311,8 @@
                 "SSHUSERNAME=${config:torizon_run_as}",
                 "--build-arg",
                 "APP_ROOT=${config:torizon_app_root}",
+                "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}",
                 "--build-arg",
                 "IMAGE_ARCH=arm",
                 "--build-arg",
@@ -1320,6 +1352,8 @@
                 "--build-arg",
                 "APP_ROOT=${config:torizon_app_root}",
                 "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}",
+                "--build-arg",
                 "IMAGE_ARCH=amd64",
                 "--build-arg",
                 "GPU=${config:torizon_gpu}",
@@ -1357,6 +1391,8 @@
                 "SSHUSERNAME=${config:torizon_run_as}",
                 "--build-arg",
                 "APP_ROOT=${config:torizon_app_root}",
+                "--build-arg",
+                "APP_EXECUTABLE=${config:torizon_app_executable}",
                 "--build-arg",
                 "IMAGE_ARCH=riscv64",
                 "--build-arg",
