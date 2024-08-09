@@ -3,8 +3,8 @@
 # Base container version
 # Using Slint v1.5.1 base images
 ##
-ARG CROSS_SDK_BASE_TAG=3.3.0-bookworm-1.5.1
-ARG BASE_VERSION=next
+ARG CROSS_SDK_BASE_TAG=3.3.0-bookworm-1.7.1
+ARG BASE_VERSION=3.3.0
 
 ##
 # Board architecture
