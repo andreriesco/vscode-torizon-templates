@@ -17,6 +17,7 @@
 )]
 param()
 
+$acceptAll = $args[0]
 
 $projectName = $objMetadata.multiContainerProjectName
 
@@ -108,8 +109,12 @@ $newWaitSyncSettings, $waitSyncDuplicated = FixDuplicates $sortedWaitSyncSetting
 
 if ($debugPortDuplicated -or $waitSyncDuplicated) {
 
-    $_updateConfirm = Read-Host `
-    "Do you want to update the debug ports and wait_syncs to the suggested values? <y/N>"
+    if ($acceptAll -eq $true) {
+        $_updateConfirm = 'y'
+    } else {
+        $_updateConfirm = Read-Host `
+            "Do you want to update the debug ports and wait_syncs to the suggested values? <y/N>"
+    }
 
     if ($_updateConfirm -eq 'y') {
 
