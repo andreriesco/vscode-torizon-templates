@@ -34,7 +34,7 @@ ARG GPU=
 
 # DOTNET -----------------------------------------------------------------------
     FROM --platform=linux/${IMAGE_ARCH} \
-    torizon/dotnet8-debug:${DOTNET_BASE_VERSION} AS Dotnet
+    torizon/dotnet8-debug:${DOTNET_BASE_VERSION} AS dotnet
 
 
 # BUILD ------------------------------------------------------------------------
