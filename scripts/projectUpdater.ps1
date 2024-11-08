@@ -117,6 +117,26 @@ $_templateMetadata =
     $_metadata.Templates |
         Where-Object { $_.folder -eq $templateName }
 
+# If the template is deprecated or broken, it cannot be updated. If it's incomplete the user should be made aware of the problem and choose to proceed or not.
+if ($_templateMetadata.status -eq "deprecated") {
+    Write-Host -ForegroundColor DarkRed "This template is deprecated in the most recent version of the Torizon IDE Extension. For details check https://github.com/torizon/vscode-torizon-templates/blob/dev/DEPRECATED.md"
+    exit 0
+
+} elseif ($_templateMetadata.status -eq "notok") {
+    Write-Host -ForegroundColor DarkRed "This template is broken in the most recent version of the Torizon IDE Extension. Reason:"
+    Write-Host -ForegroundColor DarkRed $_templateMetadata.customMessage
+    exit 0
+
+} elseif ($_templateMetadata.status -eq "incomplete") {
+    Write-Host -ForegroundColor DarkRed "This template is incomplete in the most recent version of the Torizon IDE Extension. Reason:"
+    Write-Host -ForegroundColor DarkRed $_templateMetadata.customMessage
+    $_sure = Read-Host -Prompt "Are you sure you want to proceed with the update? [y/n]"
+
+    if ($_sure -ne "y") {
+        exit 0
+    }
+}
+
 # ----------------------------------------------------------- ALWAYS ACCEPT NEW
 # UPDATE.JSON:
 Copy-Item `
