@@ -276,9 +276,9 @@
         {
             "img": "cppconsole.png",
             "folder": "cppConsole",
-            "description": "C++ Makefile Console Application",
+            "description": "C/C++ Makefile Console Application",
             "runtime": "libc",
-            "language": "C++",
+            "language": "C/C++",
             "debugSSHPort": "2230",
             "multiContainer": true,
             "support": "Toradex",
@@ -299,9 +299,9 @@
         {
             "img": "cmakeconsole.png",
             "folder": "cmakeConsole",
-            "description": "C++ CMake Console Application",
+            "description": "C/C++ CMake Console Application",
             "runtime": "cmake",
-            "language": "C++",
+            "language": "C/C++",
             "debugSSHPort": "2230",
             "multiContainer": true,
             "support": "Toradex",
