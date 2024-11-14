@@ -90,7 +90,7 @@
             "language": "C#",
             "debugSSHPort": "2224",
             "multiContainer": true,
-            "support": "Community",
+            "support": "Toradex",
             "status": "ok",
             "customMessage": "",
             "tests": {
