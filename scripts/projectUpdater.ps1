@@ -102,19 +102,90 @@ if ([string]::IsNullOrEmpty($acceptAll)) {
     }
 }
 
-# copy the new one and make the subs
-$templateName = Get-Content $projectFolder/.conf/.template
-$containerName = Get-Content $projectFolder/.conf/.container
+# PROJECT UPDATER - The first thing is to update it
+if (
+    -not (_checkIfFileContentIsEqual `
+            $Env:HOME/.apollox/scripts/projectUpdater.ps1 `
+            $projectFolder/.conf/projectUpdater.ps1)
+) {
+    # in this case we need to update the project updater
+    # and then run it again
+    Copy-Item `
+        $Env:HOME/.apollox/scripts/projectUpdater.ps1 `
+        $projectFolder/.conf/projectUpdater.ps1
+
+    Write-Host `
+        -ForegroundColor DarkYellow `
+        "⚠️  project updater updated, running it again"
+
+    # run the project updater again
+    & $projectFolder/.conf/projectUpdater.ps1 `
+        $projectFolder `
+        $projectName `
+        $acceptAll `
+        $true
+
+    exit $LASTEXITCODE
+}
 
 # check first if the folder already exists
 if (-not (Test-Path $projectFolder/.conf/tmp)) {
     mkdir $projectFolder/.conf/tmp
 }
 
-# get the metadata
-$_metadata = Get-Content "$Env:HOME/.apollox/templates.json" | ConvertFrom-Json
+# get the metadata of templates.json
+$_templatesJson = Get-Content "$Env:HOME/.apollox/templates.json" | ConvertFrom-Json
+
+# Replace the the .template and .container with metadata.json
+if ((Test-Path "$projectFolder/.conf/.template") -and (Test-Path "$projectFolder/.conf/.container")) {
+    $templateName = Get-Content $projectFolder/.conf/.template
+    $containerName = Get-Content $projectFolder/.conf/.container
+
+    $_metadataJson = New-Object PSObject
+    $_metadataJson | Add-Member -MemberType NoteProperty -Name "templateName" -Value $templateName
+    $_metadataJson | Add-Member -MemberType NoteProperty -Name "containerName" -Value $containerName
+    # If this property doesn't exist, then we are on Torizon 6
+    if ($null -eq $_templatesJson.TorizonOSMajor) {
+        $_torizonOSMajor = "6"
+    } else {
+        $_torizonOSMajor = $_templatesJson.TorizonOSMajor
+    }
+    $_metadataJson | Add-Member -MemberType NoteProperty -Name "torizonOSMajor" -Value $_torizonOSMajor
+
+    # Save the modified JSON object to a file
+    Set-Content -Path "$projectFolder/.conf/metadata.json" -Value ($_metadataJson | ConvertTo-Json) -Encoding UTF8
+
+    Remove-Item -Path $projectFolder/.conf/.template -Force
+    Remove-Item -Path $projectFolder/.conf/.container -Force
+}
+
+# get the metadata of the project
+$_metadataJson = Get-Content "$projectFolder/.conf/metadata.json" | ConvertFrom-Json
+$templateName = $_metadataJson.templateName
+$containerName = $_metadataJson.containerName
+$_torizonOSMajor = $_metadataJson.TorizonOSMajor
+
+# If it's not the current version, it's because the person has torizon.templatesBranch setting set
+if ($_templatesJson.TorizonOSMajor -ne "7") {
+    Write-Host -ForegroundColor DarkYellow "The current Torizon OS version is 7. If you want to upgrade to the current version, remove the torizon.templatesBranch setting."
+}
+
+$_templatesJsonTorizonMajor = $_templatesJson.TorizonOSMajor
+
+# Major update on the template
+if ($_torizonOSMajor -ne $_templatesJsonTorizonMajor) {
+
+    Write-Host -ForegroundColor DarkRed "Your template is on Torizon OS version ${_torizonOSMajor} and you are updating it to a template in Torizon OS version ${_templatesJsonTorizonMajor}"
+    $_sure = Read-Host -Prompt "Are you sure you want to proceed with the update? [y/n]"
+
+    if ($_sure -ne "y") {
+        Write-Host -ForegroundColor DarkRed "If you want to stick to a specific Torizon OS version, set the torizon.templatesBranch on settings.json: https://developer.toradex.com/torizon/application-development/ide-extension/reference-documentation/workspace-settings#torizontemplatesbranch"
+        exit 0
+    }
+}
+
 $_templateMetadata =
-    $_metadata.Templates |
+    $_templatesJson.Templates |
         Where-Object { $_.folder -eq $templateName }
 
 # If the template is deprecated or broken, it cannot be updated. If it's incomplete the user should be made aware of the problem and choose to proceed or not.
@@ -143,32 +214,6 @@ Copy-Item `
     $Env:HOME/.apollox/$templateName/.conf/update.json `
     $projectFolder/.conf/update.json
 
-
-# PROJECT UPDATER:
-if (
-    -not (_checkIfFileContentIsEqual `
-            $Env:HOME/.apollox/scripts/projectUpdater.ps1 `
-            $projectFolder/.conf/projectUpdater.ps1)
-) {
-    # in this case we need to update the project updater
-    # and then run it again
-    Copy-Item `
-        $Env:HOME/.apollox/scripts/projectUpdater.ps1 `
-        $projectFolder/.conf/projectUpdater.ps1
-
-    Write-Host `
-        -ForegroundColor DarkYellow `
-        "⚠️  project updater updated, running it again"
-
-    # run the project updater again
-    & $projectFolder/.conf/projectUpdater.ps1 `
-        $projectFolder `
-        $projectName `
-        $acceptAll `
-        $true
-
-    exit $LASTEXITCODE
-}
 
 # TASKS.PS1:
 Copy-Item `
