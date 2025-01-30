@@ -1,10 +1,6 @@
 
 param()
 
-# include
-. "$env:HOME/.apollox/scripts/utils/formatJson.ps1"
-. "$env:HOME/.apollox/scripts/utils/replaceTasksInput.ps1"
-
 $errorActionPreference = "Stop"
 
 $projectFolder = $args[0]
