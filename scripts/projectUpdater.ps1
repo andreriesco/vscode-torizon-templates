@@ -154,15 +154,17 @@ if ((Test-Path "$projectFolder/.conf/.template") -and (Test-Path "$projectFolder
 $_metadataJson = Get-Content "$projectFolder/.conf/metadata.json" | ConvertFrom-Json
 $templateName = $_metadataJson.templateName
 $containerName = $_metadataJson.containerName
-$_torizonOSMajor = $_metadataJson.TorizonOSMajor
 
 ##
-# FIXUP FOR THE ISSUE WITH BOOKWORM SET AS TorizonOSMajor=7
+# FIXUP FOR THE ISSUE WITH BOOKWORM SET AS TorizonOSMajor=7 on v2.8.0
 # !!!IF WE ARE USING PWSH MEANS THAT IS NOT 7 IS 6!!!
 ##
-if ($_torizonOSMajor -eq "7") {
-    $_torizonOSMajor = "6"
+if ($_metadataJson.torizonOSMajor -eq "7") {
+    $_metadataJson.torizonOSMajor = "6"
+    # Save the modified JSON object to a file
+    Set-Content -Path "$projectFolder/.conf/metadata.json" -Value ($_metadataJson | ConvertTo-Json) -Encoding UTF8
 }
+$_torizonOSMajor = $_metadataJson.torizonOSMajor
 
 $_templatesJsonTorizonMajor = $_templatesJson.TorizonOSMajor
 
