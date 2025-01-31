@@ -9,7 +9,7 @@ jobs:
       image: node:18
     name: Spell Check
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: cspell CLI Lint
 
@@ -27,7 +27,7 @@ jobs:
       options: --user root
     name: Check EOF New Line
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Check EOF New Line
 
@@ -43,7 +43,7 @@ jobs:
       options: --user root
     name: Check JSON
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Check JSON
 
