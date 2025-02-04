@@ -13,6 +13,7 @@ fi
 set -e
 
 pipx install xonsh
+pipx ensurepath
 pipx inject xonsh distro
 pipx inject xonsh shtab
 pipx inject xonsh pyyaml
@@ -29,6 +30,9 @@ if ! grep -q "export PATH=\$PATH:\$HOME/.local/bin" ~/.bashrc; then
 fi
 
 # also for .xonshrc itself
+if [ ! -f ~/.xonshrc ]; then
+    touch ~/.xonshrc
+fi
 if ! grep -q "\$HOME/.local/bin" ~/.xonshrc; then
     echo "\$PATH.insert(0, '$HOME/.local/bin')" >> ~/.xonshrc
 fi
