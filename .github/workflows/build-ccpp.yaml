@@ -88,6 +88,8 @@ jobs:
           if os.environ['PROJECT_FOLDER'] == 'cppQML':
             xonsh ./.vscode/tasks.xsh run @(f"qt-enterprise-generate-auth-conf")
 
+            cat /home/runner/work/vscode-torizon-templates/vscode-torizon-templates/cppQMLCITest/.conf/qt6-enterprise/qt-feed-auth.conf
+
           xonsh ./.vscode/tasks.xsh run @(f"build-container-torizon-release-{os.environ['PROJECT_ARCH']}")
 
           if os.environ['PROJECT_FOLDER'] == 'cppQML':
