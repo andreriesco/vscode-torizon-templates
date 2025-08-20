@@ -132,7 +132,7 @@
             "dependsOn": [
             ],
             "icon": {
-                "id": "tools",
+                "id": "trash",
                 "color": "terminal.ansiYellow"
             },
             "presentation": {
