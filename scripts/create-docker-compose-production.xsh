@@ -157,6 +157,23 @@ else:
 # make sure to have binfmt
 xonsh ./.vscode/tasks.xsh run run-torizon-binfmt
 
+# run template-specific-initial-task
+if 'TEMPLATE_SPECIFIC_TASK_ENV_VARS' in os.environ and os.environ['TEMPLATE_SPECIFIC_TASK_ENV_VARS'] != "":
+    _template_env = json.loads(os.environ['TEMPLATE_SPECIFIC_TASK_ENV_VARS'])
+    for k in _template_env:
+        os.environ[k] = _template_env[k]
+TASKS_OVERRIDE_ENV = None
+if 'TASKS_OVERRIDE_ENV' in os.environ:
+    TASKS_OVERRIDE_ENV = os.environ['TASKS_OVERRIDE_ENV']
+os.environ['TASKS_OVERRIDE_ENV'] = "False"
+$TASKS_OVERRIDE_ENV = "False"
+# sync environment variables before running task
+xos = xenv.Env(os.environ)
+__xonsh__.env = xos
+
+xonsh ./.vscode/tasks.xsh run template-specific-initial-task
+if TASKS_OVERRIDE_ENV:
+    os.environ['TASKS_OVERRIDE_ENV'] = TASKS_OVERRIDE_ENV
 # start to build the image
 cd @(_compo_file_path)
 print(f"Rebuilding {os.environ['DOCKER_LOGIN']}/{_image_name}:{_tag} ...")
@@ -256,3 +273,9 @@ yaml.dump(
 _f_ref.close()
 
 print("✅ docker-compose.prod.yml generated", color=Color.GREEN)
+
+# run template-specific-final-task
+# xonsh env works in a very weird way, so we need to merge the envs
+xos = xenv.Env(os.environ)
+__xonsh__.env = xos
+xonsh ./.vscode/tasks.xsh run template-specific-final-task

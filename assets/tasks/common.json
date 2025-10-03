@@ -102,7 +102,8 @@
                     "DEBUG_SSH_PORT": "${config:torizon_debug_ssh_port}",
                     "DEBUG_PORT1": "${config:torizon_debug_port1}",
                     "DEBUG_PORT2": "${config:torizon_debug_port2}",
-                    "DEBUG_PORT3": "${config:torizon_debug_port3}"
+                    "DEBUG_PORT3": "${config:torizon_debug_port3}",
+                    "TEMPLATE_SPECIFIC_TASK_ENV_VARS": "${command:torizon.templateSpecificTaskEnvVars}"
                 }
             },
             "args": [
@@ -1716,7 +1717,7 @@
                 "group": "build-execution"
             }
         },
-        {
+                {
             "label": "template-specific-final-task",
             "detail": "Specific task to be executed on the end of the release pipeline",
             "command": "echo",
